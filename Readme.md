@@ -13,6 +13,11 @@ The goal of this project is to develop a robust backend API for an e-learning pl
 </p>
 <br>
 <p>
+  <p>
+  <h3>Steps to setup:</h3>
+    -> after cloning please run "npm install" command to install all dependencies
+    -> and then to start the server please run "npm run dev" command 
+</p>
   <h3>KEY POINTS</h3>
   ->  JWT (json web token) authorization is used .<br>
   ->  bcrypt is used for password hashing for user. <br>
@@ -21,7 +26,6 @@ The goal of this project is to develop a robust backend API for an e-learning pl
   -> various filters are also available to filter the courses .<br>
   -> Error handling is done.<br>
   -> user Profile can be accessed and updated<br>
-  
 </p>
 <br>
 <p>
