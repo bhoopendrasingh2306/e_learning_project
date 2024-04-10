@@ -15,7 +15,7 @@ The goal of this project is to develop a robust backend API for an e-learning pl
 <p>
   <p>
   <h3>Steps to setup:</h3>
-    -> after cloning please run "npm install" command to install all dependencies
+    -> after cloning please run "npm install" command to install all dependencies<br>
     -> and then to start the server please run "npm run dev" command 
 </p>
   <h3>KEY POINTS</h3>
