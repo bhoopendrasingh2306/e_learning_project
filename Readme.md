@@ -13,6 +13,18 @@ The goal of this project is to develop a robust backend API for an e-learning pl
 </p>
 <br>
 <p>
+  <h3>KEY POINTS</h3>
+  ->  JWT (json web token) authorization is used .<br>
+  ->  bcrypt is used for password hashing for user. <br>
+  -> password and email validation is also implemented for user.<br>
+  -> an email will be sent while user registration , profile upgradation, and user enrollment with the help of resend.com. <br>
+  -> various filters are also available to filter the courses .<br>
+  -> Error handling is done.<br>
+  -> user Profile can be accessed and updated<br>
+  
+</p>
+<br>
+<p>
   <h3>folder architecture</h3>
   ![Screenshot 2024-04-11 000903](https://github.com/bhoopendrasingh2306/e_learning_project/assets/123774314/353e8ba1-d8be-424f-9747-1aaeb4601dc1)
 </p>
