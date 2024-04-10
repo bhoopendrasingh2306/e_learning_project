@@ -5,15 +5,17 @@ const db = require("../db/config");
 const jwt = require("jsonwebtoken");
 const jwtKey = "my-key";
 const accessControl = require("../middlewares/jwt_verification");
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 
 
 
 // ----------------------------------------------------enrolling the user into a course -------------------------
 //http://localhost:4000/user_enrollment/:user_id
-router.post("/:user_id", accessControl,async (req, res) => {
+router.post("/:user_id",accessControl,async (req, res) => {
   try {
-    const { course_id, course_name, user_name } = req.body;
+    const { course_id, course_name, user_name, email } = req.body;
     const enrollment_id = parseInt(Math.random() * 100000);
     // check if user already exists
     const ifAlreadyExists = await db.query(
@@ -25,15 +27,27 @@ router.post("/:user_id", accessControl,async (req, res) => {
         .status(400)
         .json({ error: "USER IS ALREADY ENROLLED IN THIS COURSE" });
     } else {
-      const response =
-        await db.query(`INSERT INTO user_enrollment (enrollment_id,user_name,user_id,course_name, course_id )
-          VALUES ('${enrollment_id}',' ${user_name}','${req.params.user_id}','${course_name}', '${course_id}') on conflict do nothing`);
 
-      res.status(201).json(response);
-      console.log("response---------->", express.response);
+        const { data, error } = await resend.emails.send({
+            from: "Acme <onboarding@resend.dev>",
+            to: [email],
+            subject: "User Registration",
+            html: "<strong>User Registered Successfully</strong>",
+          });
+    
+          if (error) {
+            return res.status(400).json({ error });
+          }
+
+      const response =
+        await db.query(`INSERT INTO user_enrollment (enrollment_id,user_name,user_id,course_name, course_id, email )
+          VALUES ('${enrollment_id}',' ${user_name}','${req.params.user_id}','${course_name}', '${course_id}','${email}') on conflict do nothing`);
+
+      res.status(201).json({response: response, data: data});
+      console.log("response---------->",{response: response, data: data});
     }
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json(console.log(err));
   }
 });
 
